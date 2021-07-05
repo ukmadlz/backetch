@@ -1,0 +1,19 @@
+{
+  "name": "backetch",
+  "version": "0.0.1",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ukmadlz/backetch.git"
+  },
+  "author": "Mike Elsmore <mike@elsmore.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ukmadlz/backetch/issues"
+  },
+  "homepage": "https://github.com/ukmadlz/backetch#readme"
+}
