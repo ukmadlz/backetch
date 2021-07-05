@@ -51,7 +51,7 @@ const wordpress = async (url: string) => {
       })
     const rssString = await response.text();
     const wordpressData: any = await parse(rssString);
-    return wordpressData.rss.channel.item.map((article: any) => {
+    return ((Array.isArray(wordpressData.rss.channel.item)) ? wordpressData.rss.channel.item : [wordpressData.rss.channel.item]).map((article: any) => {
         const {
             title,
             pubDate,
@@ -71,9 +71,14 @@ const wordpress = async (url: string) => {
 
 export default async function (context: any) {
     const logzArticles = await wordpress("https://logz.io/author/mike-elsmore/feed/");
+    const devRelArticles = await wordpress("https://developerrelations.com/author/mikeelsmore/feed/");
     const mediumArticles = await medium();
     context.response.body = {
-        data: [].concat(mediumArticles, logzArticles).sort((a: IArticle, b: IArticle) => {
+        data: [].concat(
+            mediumArticles,
+            logzArticles,
+            devRelArticles,
+        ).sort((a: IArticle, b: IArticle) => {
             return (new Date(a.timestamp) < new Date(b.timestamp)) ? 1 : -1;
         }),
     };
