@@ -5,7 +5,9 @@ import Blogs from "./routes/blogs.ts";
 const router = new Router();
 router
   .get("/", (context) => {
-    context.response.body = {};
+    context.response.body = {
+      blogs: "/blogs"
+    };
   })
   .get("/blogs", Blogs);
 
