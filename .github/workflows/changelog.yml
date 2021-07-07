@@ -1,3 +1,5 @@
+name: changelog-bot-on-me
+on: pull_request
 jobs:
   changelog:
     runs-on: ubuntu-latest
