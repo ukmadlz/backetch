@@ -1,6 +1,7 @@
 import "https://deno.land/x/dotenv/load.ts";
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import Blogs from "./routes/blogs.ts";
+import Podcasts from "./routes/podcasts.ts";
 
 const router = new Router();
 router
@@ -9,7 +10,8 @@ router
       blogs: "/blogs"
     };
   })
-  .get("/blogs", Blogs);
+  .get("/blogs", Blogs)
+  .get("/Podcasts", Podcasts);
 
 const app = new Application();
 app.use(router.routes());

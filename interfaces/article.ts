@@ -5,4 +5,5 @@ export default interface IArticle {
     url: string,
     timestamp: Date,
     type: string,
+    source: string,
 }

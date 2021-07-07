@@ -11,7 +11,7 @@ const hashId = (type: string, reference: string) => {
 }
 
 const medium = async () => {
-    const type = 'medium'
+    const type = 'devto'
     const url = "https://dev.to/api/articles/me"
     const response = await fetch(url, {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -24,7 +24,7 @@ const medium = async () => {
     return articles.filter((article: any) => {
         return article.published;
     })
-    .map((article: any) => {
+    .map((article: any): IArticle => {
         const {
             id,
             title,
@@ -39,11 +39,12 @@ const medium = async () => {
             url,
             timestamp: published_timestamp,
             type,
+            source: type,
         }
     })
 }
 
-const wordpress = async (url: string) => {
+const wordpress = async (url: string, source: string) => {
     const type = "wordpress";
     const response = await fetch(url, {
         method: 'GET', // *GET, POST, PUT, DELETE, etc.
@@ -65,13 +66,14 @@ const wordpress = async (url: string) => {
             url: link,
             timestamp: new Date(pubDate),
             type,
+            source
         }
     })
 }
 
 export default async function (context: any) {
-    const logzArticles = await wordpress("https://logz.io/author/mike-elsmore/feed/");
-    const devRelArticles = await wordpress("https://developerrelations.com/author/mikeelsmore/feed/");
+    const logzArticles = await wordpress("https://logz.io/author/mike-elsmore/feed/", "logz.io");
+    const devRelArticles = await wordpress("https://developerrelations.com/author/mikeelsmore/feed/", "developerrelations.com");
     const mediumArticles = await medium();
     context.response.body = {
         data: [].concat(
@@ -81,5 +83,6 @@ export default async function (context: any) {
         ).sort((a: IArticle, b: IArticle) => {
             return (new Date(a.timestamp) < new Date(b.timestamp)) ? 1 : -1;
         }),
+        generated: new Date(),
     };
 }
