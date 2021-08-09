@@ -7,7 +7,8 @@ const router = new Router();
 router
   .get("/", (context) => {
     context.response.body = {
-      blogs: "/blogs"
+      blogs: "/blogs",
+      podcasts: "/podcasts"
     };
   })
   .get("/blogs", Blogs)
