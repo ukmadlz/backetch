@@ -2,17 +2,20 @@ import "https://deno.land/x/dotenv/load.ts";
 import { Application, Router } from "https://deno.land/x/oak/mod.ts";
 import Blogs from "./routes/blogs.ts";
 import Podcasts from "./routes/podcasts.ts";
+import Socials from "./routes/socials.ts";
 
 const router = new Router();
 router
   .get("/", (context) => {
     context.response.body = {
       blogs: "/blogs",
-      podcasts: "/podcasts"
+      podcasts: "/podcasts",
+      socials: "/socials"
     };
   })
   .get("/blogs", Blogs)
-  .get("/Podcasts", Podcasts);
+  .get("/podcasts", Podcasts)
+  .get("/socials", Socials);
 
 const app = new Application();
 app.use(router.routes());
