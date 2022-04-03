@@ -10,7 +10,7 @@ const hashId = (type: string, reference: string) => {
     return hash.toString();
 }
 
-const medium = async () => {
+const devTo = async () => {
     const type = 'devto'
     const url = "https://dev.to/api/articles/me"
     const response = await fetch(url, {
@@ -74,10 +74,10 @@ const wordpress = async (url: string, source: string) => {
 export default async function (context: any) {
     const logzArticles = await wordpress("https://logz.io/author/mike-elsmore/feed/", "logz.io");
     const devRelArticles = await wordpress("https://developerrelations.com/author/mikeelsmore/feed/", "developerrelations.com");
-    const mediumArticles = await medium();
+    const devToArticles = await devTo();
     context.response.body = {
         data: [].concat(
-            mediumArticles,
+            devToArticles,
             logzArticles,
             devRelArticles,
         ).sort((a: IArticle, b: IArticle) => {
